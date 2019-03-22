@@ -13,10 +13,9 @@ def execute(cmd, args):
         args = args[-1:]
     if childPid == 0:
         os.system(cmd + ' ' + ' '.join(args))
-    else:
-        if b:
-            os.wait()
-        return True
+    elif b:
+        os.wait()
+    return True
 
 
 # Move to directory args[0]
@@ -41,7 +40,7 @@ def clr(args, env):
     return True
 
 
-# List the files in the current directory
+# List the files in the given directory
 def dir(args, env):
     if not args:
         directory = "."
@@ -71,9 +70,10 @@ def echo(args, env):
 
 # Display the readme file
 def displayHelp(args, env):
+    path = env.getEnv("SHELL")[:-len("myshell.py")]
     childPid = os.fork()
     if childPid == 0:
-        os.system("cat ./readme | more")
+        os.system("cat " +  path + "readme | more")
     else:
         os.wait()
     return True

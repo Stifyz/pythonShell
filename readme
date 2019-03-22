@@ -14,7 +14,7 @@ The char '&' is used to perform a background execution. If the user put it at th
 
 Redirection:
 This shell implement three redirection. Redirection are used like that: <Cmd> <args> [redirection] [fileName]
-If the user need to give command arguments and this command arguments are in a file, he can use the left redirection (<) for that and the content of the file will be used as arguments.
+If the user need to give command arguments and this command arguments are in a file, he can use the left redirection (<) for that and the content of the file will be used as user input.
 To save the output of a command or a builtin in a file, the user can use the right redirection. The simple (>) to create a file and write the output on the top of the file and the double (>>) to append the output at the end of the file.
 
 Reference:
@@ -29,8 +29,9 @@ If no directory is provided cd print the actual path.
 clr
 clr will just clear the screen and print just the prompt on the top of the terminal.
 
-dir
-Print a complete list of the files in the current directory, each followed by a new-line.
+dir [directory]
+Print a complete list of the files in the given directory, each followed by a new-line.
+If no directrory is given, list the files in the current one.
 
 display
 Print the following arguments, each separated by a whitespace.
@@ -38,8 +39,9 @@ Print the following arguments, each separated by a whitespace.
 echo
 Same as "display" builtin.
 
-environ
+environ [key]
 Print the current shell environment with this format: "<KEY>=<value>".
+If key is provided, print only the matching pair if found.
 
 help
 Show this help.
