@@ -57,23 +57,15 @@ class MyShell:
                 sys.stdout = open(fileName, "w+")
             except IOError:
                 sys.stderr.write("File: {} cannot be created.".format(fileName))
-        if "<" in args:
-            index = args.index("<")
-            fileName = args[index + 1]
-            with open(fileName, "r") as word_list:
-                args = word_list.read().split(' ')
-        return args
 
     # Process the commands
     def process(self, cmd, args):
-        defaultOut = sys.stdout
-        args = self.manageRedirection(args)
+        self.manageRedirection(args)
         if cmd in self.commands:
-            b = self.commands[cmd](args, self.env)
+            return self.commands[cmd](args, self.env)
         else:
-            b = Commands.execute(cmd, args)
-        sys.stdout = defaultOut
-        return b
+            return Commands.execute(cmd, args)
+
 
     # Main loop when the shell is executed with a file as argument
     def execFile(self, fileName):
@@ -93,7 +85,9 @@ class MyShell:
     def mainLoop(self):
         self.printPrompt()
         for line in sys.stdin:
+            defaultOut = sys.stdout
             b = self.parseLine(line)
+            sys.stdout = defaultOut
             if not b:
                 return
             else:

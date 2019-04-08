@@ -13,6 +13,7 @@ def execute(cmd, args):
         args = args[-1:]
     if childPid == 0:
         os.system(cmd + ' ' + ' '.join(args))
+        return False
     elif b:
         os.wait()
     return True
@@ -54,6 +55,7 @@ def dir(args, env):
 
 
 # List the environment strings separated by new-lines
+# If an argument is given, print the value of this environment variable 
 def environ(args, env):
     if not args:
         print(*env.getEnvFull(), sep="\n")
